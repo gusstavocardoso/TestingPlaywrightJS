@@ -2,7 +2,7 @@ const config = {
     use: {
       baseURL: 'https://www.saucedemo.com/',
       // browserName: 'chromium',
-      headless: false,
+      headless: true,
       // viewport: { width: 1280, height: 720 },
       launchOptions: {
         slowMo: 50,
