@@ -5,6 +5,7 @@ import Product from "../src/pages/ProductPage";
 import Cart from "../src/pages/CartPage";
 import Confirmation from "../src/pages/ConfirmationPage";
 import Order from "../src/pages/OrderPage";
+import User from "../src/fixtures/User";
 
 test.describe("Playwright End-to-end Testing", () => {
   let login;
@@ -12,6 +13,7 @@ test.describe("Playwright End-to-end Testing", () => {
   let cart;
   let confirmation;
   let order;
+  let user;
 
   test.beforeEach(async ({ page }) => {
     await page.goto(config.use.baseURL);
@@ -20,11 +22,12 @@ test.describe("Playwright End-to-end Testing", () => {
     cart = new Cart(page);
     confirmation = new Confirmation(page);
     order = new Order(page);
+    user = new User();
   });
 
   test("Should complete a purchase order", async ({ page }) => {
     await expect(page).toHaveTitle("Swag Labs");
-    await login.user("standard_user", "secret_sauce");
+    await login.user(user.data.access.userName, user.data.access.password);
 
     expect(await product.productPage()).toContainText("Products");
     await product.add();
@@ -36,7 +39,7 @@ test.describe("Playwright End-to-end Testing", () => {
     expect(await confirmation.confirmationPage()).toContainText(
       "Checkout: Your Information"
     );
-    await confirmation.toFinishOrder("John", "Petrucci", "14680000");
+    await confirmation.toFinishOrder(user.data.info.firstName, user.data.info.lastName, user.data.info.zipCode);
 
     expect(await order.resumeOrderPage()).toContainText("Checkout: Overview");
     await order.finish();
