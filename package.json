@@ -1,0 +1,19 @@
+{
+  "name": "playwright-test-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [
+    "playwright",
+    "test automation",
+    "e2e testing"
+  ],
+  "author": "Gustavo Cardoso",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.25.2"
+  }
+}
